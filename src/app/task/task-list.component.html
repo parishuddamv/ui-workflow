@@ -1,0 +1,203 @@
+<div class="task-list-container">
+  <!-- Filters -->
+<div class="header filters">
+
+  <input
+    type="text"
+    class="client-filter"
+    placeholder="Client name..."
+    [(ngModel)]="clientFilter"
+  />
+  <select
+    class="status-filter"
+    [(ngModel)]="statusFilter"
+  >
+    <option value="ALL">All Status</option>
+    <option value="Open">Open</option>
+    <option value="InProgress">In Progress</option>
+    <option value="Closed">Closed</option>
+  </select>
+
+  <!-- Search button -->
+  <button class="search-btn" (click)="onFilterChange()">
+    🔍 Search
+  </button>
+</div>
+
+
+  <!-- Summary -->
+<div class="summary">
+  <div class="total">Total: {{ getTotalTasks() }}</div>
+  <div class="open">Open: {{ getOpenTasks() }}</div>
+  <div class="inprogress">In Progress: {{ getInProgressTasks() }}</div>
+  <div class="closed">Closed: {{ getClosedTasks() }}</div>
+</div>
+
+
+  <!-- Table -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Task Name</th>
+          <th>Attachments</th>
+          <th>Description</th>
+          <th>Assigned To</th>
+          <th>Status</th>
+          <th>Assign Date</th>
+          <th>Actions</th>
+          <th>History</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{ task.name }}</td>
+
+          <td>
+            <div class="attachments">
+              <div
+                *ngFor="let attachment of task.attachments"
+                class="attachment-chip"
+              >
+                <span class="attachment-filename">
+                  {{
+                    attachment.filename.length > 20
+                      ? (attachment.filename | slice: 0:20) + '...'
+                      : attachment.filename
+                  }}
+                </span>
+
+                <!-- Put buttons in a separate row/line -->
+                <div class="attachment-actions">
+                  <button
+                    class="preview-btn"
+                    (click)="previewAttachment(attachment.url, $event)"
+                  >
+                    Preview
+                  </button>
+                  <button
+                    class="download-btn"
+                    (click)="downloadAttachment(attachment.url, attachment.filename)"
+                  >
+                    Download
+                  </button>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td
+            (mouseenter)="showPopup(task.id)"
+            (mouseleave)="hidePopup()"
+          >
+            <span>
+              {{
+                task.description.length > 20
+                  ? (task.description | slice: 0:20) + '...'
+                  : task.description
+              }}
+            </span>
+
+            <div
+              *ngIf="activePopupId === task.id.toString()"
+              class="description-popup"
+            >
+              {{ task.description }}
+            </div>
+          </td>
+
+          <td>
+            <span
+              class="avatar"
+              [style.background-color]="getAvatarColor(task.assignedTo)"
+            >
+              {{ task.assignedTo.charAt(0) }}
+            </span>
+            {{ task.assignedTo }}
+          </td>
+
+          <td>
+            <span
+              class="status-badge"
+              [ngClass]="{
+                open: task.status === 'Open',
+                inprogress: task.status === 'InProgress',
+                closed: task.status === 'Closed'
+              }"
+            >
+              {{ task.status }}
+            </span>
+          </td>
+
+          <td>{{ task.assignDate }}</td>
+
+          <td class="action-cell">
+            <button class="edit-btn" (click)="editTask(task.id)">
+              <img src="assets/icons/edit.png" alt="Edit" width="20" height="20" />
+            </button>
+
+            <button class="delete-btn" (click)="deleteTask(task.id)">
+              <img src="assets/icons/delete.png" alt="Delete" width="20" height="20" />
+            </button>
+          </td>
+
+          <td class="history-cell">
+            <button class="history-btn" (click)="openHistory(task.id)">
+              <img src="assets/icons/history.png" alt="History" width="20" height="20" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button
+      class="pagination button"
+      (click)="onPageChange(page - 1)"
+      [disabled]="page === 0"
+    >
+      Previous
+    </button>
+
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+
+<div class="pagination">
+  <button
+    class="pagination-button"
+    (click)="onPageChange(page + 1)"
+    [disabled]="page + 1 >= totalPages"
+  >
+    Next
+  </button>
+</div>
+
+
+  <!-- Preview Modal -->
+  <app-preview-modal
+    *ngIf="previewUrl"
+    [previewUrl]="previewUrl"
+    [previewType]="previewType"
+    (close)="closePreview()"
+  >
+  </app-preview-modal>
+
+  <!-- History Modal -->
+  <div
+    class="modal-overlay"
+    *ngIf="showHistoryModal"
+    @fadeInOut
+    (click)="closeHistory()"
+  >
+    <div
+      class="modal-content"
+      @slideUp
+      (click)="$event.stopPropagation()"
+    >
+      <span class="close-btn" (click)="closeHistory()">&times;</span>
+      <app-task-history [taskId]="selectedTaskId"></app-task-history>
+    </div>
+  </div>
+</div>

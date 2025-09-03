@@ -1,0 +1,30 @@
+<h2>Manage Clients</h2>
+
+<div class="add-client">
+  <input [(ngModel)]="newClientName" placeholder="Enter new client name" />
+  <button (click)="addClient()">Add Client</button>
+</div>
+
+<hr />
+
+<div *ngIf="clients.length === 0">No clients found</div>
+<table class="client-table" *ngIf="clients.length > 0">
+  <thead>
+    <tr>
+      <th>Client Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let client of clients">
+      <td>
+        <input [(ngModel)]="client.name" />
+      </td>
+      <td>
+        <button (click)="updateClient(client)">Save</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="message">{{ message }}</p>

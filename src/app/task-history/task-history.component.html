@@ -1,0 +1,39 @@
+<!-- src/app/task-history/task-history.component.html -->
+<h2>Task History</h2>
+
+<div *ngIf="!taskId && !isLoading" class="hint">No task selected.</div>
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="errorMsg && !isLoading" class="error">{{ errorMsg }}</div>
+
+<table *ngIf="!isLoading && histories.length">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Field</th>
+      <th>Old Value</th>
+      <th>New Value</th>
+      <th>Attachment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let h of histories; trackBy: trackById">
+      <td>{{ h.changedAt | date: 'short' }}</td>
+      <td>{{ h.fieldChanged || h.action }}</td>
+      <td>{{ h.oldValue }}</td>
+      <td>{{ h.newValue }}</td>
+      <td>
+        <a *ngIf="h.attachmentUrl"
+           [href]="h.attachmentUrl"
+           target="_blank"
+           rel="noopener noreferrer">
+           {{ h.attachmentFilename || 'Preview' }}
+        </a>
+        <span *ngIf="!h.attachmentUrl">-</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!isLoading && taskId && !histories.length && !errorMsg">
+  No history available.
+</p>

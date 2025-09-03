@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss (or styles.css) */
+:root { --app-font: "Arimo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+
+html, body { font-family: var(--app-font); }
+button, input, select, textarea { font: inherit;
+color: #073869; } /* ensure controls inherit */

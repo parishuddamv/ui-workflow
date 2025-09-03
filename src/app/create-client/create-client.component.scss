@@ -1,0 +1,105 @@
+/* Heading */
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #073869;
+  margin-bottom: 16px;
+}
+
+/* Add client section */
+.add-client {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-client input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.add-client button {
+  padding: 8px 16px;
+  background: #073869;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.add-client button:hover {
+  background: #0551a1;
+  transform: translateY(-2px);
+}
+
+/* Divider */
+hr {
+  margin: 20px 0;
+  border: 0;
+  height: 1px;
+  background: #ddd;
+}
+
+/* Client table */
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.client-table th,
+.client-table td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.client-table th {
+  background: #f4f6f8;
+  color: #073869;
+  font-weight: 600;
+}
+
+.client-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.client-table input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Table buttons */
+.client-table button {
+  padding: 6px 12px;
+  background: #073869;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.client-table button:hover {
+  background: #0551a1;
+}
+
+/* Message styling */
+p {
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: green;
+}

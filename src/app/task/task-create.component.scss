@@ -1,0 +1,311 @@
+/* Page-Level Background */
+body {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%); /* Subtle blue gradient */
+  min-height: 100vh; /* Full viewport height */
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2a44; /* Dark navy for text contrast */
+}
+
+/* Optional: Glassmorphism Background for Page (Uncomment if desired) */
+/*
+body {
+  background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23e0e7ff" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,176C960,192,1056,192,1152,181.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E') no-repeat bottom / cover, linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(167, 243, 208, 0.1));
+  backdrop-filter: blur(4px);
+}
+*/
+
+/* Task Form */
+.task-form {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 32px; /* Slightly larger padding for modern spacing */
+  background: rgba(255, 255, 255, 0.95); /* Semi-transparent white for subtle depth */
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12); /* Softer, larger shadow */
+  transform: translateY(0); /* For animation */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth animation */
+}
+
+/* Hover Animation for Form */
+.task-form:hover {
+  transform: translateY(-4px); /* Subtle lift effect */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Grid Form */
+.grid-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px; /* Larger gap for modern spacing */
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 8px; /* Slightly more spacing */
+      color: #1f2a44; /* Dark navy for better contrast */
+      font-size: 15px; /* Slightly larger for readability */
+    }
+
+    input,
+    textarea,
+    select {
+      padding: 12px 16px; /* More padding for comfort */
+      border: 1px solid #d1d5db; /* Light gray for modern look */
+      border-radius: 10px; /* Softer corners */
+      font-size: 15px; /* Larger text */
+      outline: none;
+      background: #ffffff; /* White background for inputs */
+      transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+      &:focus {
+        border-color: #3b82f6; /* Blue to match buttons */
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); /* Softer focus glow */
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px; /* Slightly taller for usability */
+    }
+  }
+
+  .dropzone {
+    border: 2px dashed #9ca3af; /* Neutral gray */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    background: #f8fafc; /* Light gray background */
+    transition: border-color 0.3s ease-in-out, background 0.3s ease-in-out;
+
+    &.dragover {
+      border-color: #3b82f6; /* Blue to match theme */
+      background: #eff6ff; /* Light blue for drag state */
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      color: #4b5563; /* Darker gray for text */
+    }
+  }
+
+  .file-list {
+    margin-top: 12px;
+
+    .file-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px; /* More padding */
+      background: #f1f5f9; /* Slate background */
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14px; /* Slightly larger */
+
+      button {
+        background: #f59e0b; /* Amber to match small-btn */
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+        transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+        &:hover {
+          background: #d97706; /* Darker amber */
+          transform: translateY(-1px);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+/* ===== Buttons row ===== */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.form-buttons.full-width { width: 100%; }
+
+.form-buttons .btn {
+  min-width: 160px;          /* nice, consistent width */
+}
+
+/* Stack on small screens, put Reset under Create */
+@media (max-width: 600px) {
+  .form-buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .form-buttons .btn {
+    width: 100%;
+  }
+}
+/* ===== Brand tokens (optional but handy) ===== */
+:root{
+  --brand: #073869;
+  --brand-hover: #0c4e8a;
+  --brand-pressed: #052b50;
+  --ring: rgba(126,165,210,.35);
+  --border: #d1d5db;
+  --muted: #f2f6fb;
+  --text: #0f172a;
+}
+
+/* ===== Base button ===== */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 12px 16px;
+  min-height: 40px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  background: #0d5caa;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: .2px;
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  transition:
+    background-color .2s ease,
+    border-color .2s ease,
+    transform .12s ease,
+    box-shadow .2s ease;
+}
+
+.btn:hover{
+  background: #0c4e8a;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+.btn:active{
+  background: #052b50;
+  transform: translateY(0);
+}
+
+.btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px  rgba(126,165,210,.35),
+    0 2px 6px rgba(0,0,0,.06);
+}
+
+.btn:disabled,
+.btn[disabled]{
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===== Reset (secondary/ghost) ===== */
+.reset-btn{
+  background: #fff;
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+.reset-btn:hover{
+  background: var(--muted);
+  border-color: var(--brand-hover);
+  color: var(--brand-hover);
+}
+
+.reset-btn:active{
+  background: #e9f0fb;
+  border-color: var(--brand-pressed);
+  color: var(--brand-pressed);
+}
+
+.reset-btn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+
+/* Small Button */
+.small-btn {
+  background: #f59e0b; /* Amber */
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  &:hover {
+    background: #d97706;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .task-form {
+    max-width: 95%;
+    padding: 24px;
+    margin: 24px auto;
+  }
+
+  .grid-form {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted for better mobile fit */
+    gap: 16px;
+  }
+
+  .form-buttons {
+    flex-direction: column; /* Stack buttons on mobile */
+    align-items: flex-end;
+    width: 100%;
+
+    .btn {
+      max-width: 100%; /* Full width on mobile */
+    }
+  }
+}
+
+/* Animation for Form Load */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-form {
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in animation on load */
+}

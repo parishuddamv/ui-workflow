@@ -1,0 +1,88 @@
+<div *ngIf="task">
+  <h2>Edit Task for {{ task.name }}</h2>
+
+  <form (ngSubmit)="updateTask()" #f="ngForm" class="task-form">
+
+    <!-- Description -->
+    <label for="desc">Description:</label>
+    <textarea
+      id="desc"
+      [(ngModel)]="task.description"
+      name="description"
+      class="input"
+      rows="4">
+    </textarea>
+
+    <!-- Client (grayed out, not editable, but value is still submitted) -->
+    <label for="clientName">Client</label>
+    <div class="readonly-field">
+      <input
+        id="clientName"
+        type="text"
+        [value]="task.clientName || resolveClientName(task.clientId)"
+        class="input input--readonly"
+        readonly
+        aria-readonly="true"
+      />
+      <!-- This hidden field ensures clientId goes to backend -->
+      <input type="hidden" name="clientId" [ngModel]="task.clientId" />
+    </div>
+
+    <!-- Status (use enum values your backend expects: Open, InProgress, Closed) -->
+    <label for="status">Status:</label>
+    <select
+      id="status"
+      [(ngModel)]="task.status"
+      name="status"
+      class="input">
+      <option value="Open">Open</option>
+      <option value="InProgress">In Progress</option>
+      <option value="Closed">Closed</option>
+    </select>
+
+    <!-- Attachments -->
+    <div class="form-group">
+      <label for="fileInput">Attachments</label>
+
+      <div
+        class="dropzone"
+        (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        [class.dragover]="isDragOver"
+        (click)="fileInput.click()"
+        role="region"
+        aria-label="File upload dropzone"
+        tabindex="0"
+      >
+        <p>Drag & drop files here or click to select</p>
+        <input
+          type="file"
+          id="fileInput"
+          multiple
+          (change)="onFileChange($event)"
+          #fileInput
+          hidden
+          aria-hidden="true"
+        />
+      </div>
+
+      <div class="file-list" *ngIf="files.length > 0" role="list">
+        <div class="file-item" *ngFor="let file of files; let i = index" role="listitem">
+          <span class="file-name">{{ file.name }} ({{ formatSize(file.size) }})</span>
+          <button
+            type="button"
+            class="btn btn--sm btn--ghost"
+            (click)="removeFile(i)"
+            [attr.aria-label]="'Remove ' + file.name">
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn--primary">Update</button>
+    </div>
+  </form>
+</div>

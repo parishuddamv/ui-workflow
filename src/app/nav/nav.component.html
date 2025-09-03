@@ -1,0 +1,27 @@
+<!--<div class="layout">
+  <nav class="sidebar" [class.closed]="!isSidebarOpen">
+
+    <div class="sidebar-header">
+      <h2>Task Manager</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="/list" routerLinkActive="active">Task List</a></li>
+      <li><a routerLink="/create" routerLinkActive="active">Create Task</a></li>
+    </ul>
+
+  </nav>
+</div>-->
+
+
+<div class="main-container">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h2>Task Manager</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="/list" routerLinkActive="active">Task List</a></li>
+      <li><a routerLink="/create" routerLinkActive="active">Create Task</a></li>
+    <li><a routerLink="/clients" routerLinkActive="active">Manage Clients</a></li>
+    </ul>
+        <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+  </nav>
