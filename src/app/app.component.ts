@@ -10,7 +10,7 @@ import { ToastContainerComponent } from "./core/toast-container.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, NgIf, NavComponent,
+  imports: [RouterOutlet, CommonModule, NavComponent,
     HttpClientModule, FormsModule, ToastContainerComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

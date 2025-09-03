@@ -552,4 +552,64 @@ td:nth-child(6) {
   color: #c62828;
   box-shadow: 4px 8px 6px 4px #c6282882;
 }
+// ---- Theme
+$brand: #073869;
+$brand-hover: lighten($brand, 6%);
+$brand-active: darken($brand, 6%);
+$ring: rgba(7, 56, 105, 0.35);
+
+// ---- Button
+.search-btn {
+  appearance: none;
+  border: 1px solid transparent;
+  background: linear-gradient(180deg, $brand-hover 0%, $brand 100%);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                 // space before the 🔍
+  cursor: pointer;
+  transition: 
+    background .2s ease,
+    box-shadow .2s ease,
+    transform .06s ease;
+
+  // subtle elevation
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+
+  &:hover {
+    background: linear-gradient(180deg, $brand 0%, $brand-active 100%);
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0,0,0,.10);
+    background: $brand-active;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 3px #fff,      // inner contrast ring (for light headers)
+      0 0 0 5px $ring;     // outer brand ring
+  }
+
+  &:disabled,
+  &.is-loading {
+    opacity: .65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  // size variants (optional)
+  &.sm { padding: 8px 12px; border-radius: 7px; font-size: 14px; }
+  &.lg { padding: 12px 18px; border-radius:10px; font-size: 16px; }
+}
 
