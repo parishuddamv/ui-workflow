@@ -1,9 +1,10 @@
 export const environment = {
   production: true,
-  apiBaseUrl: '/api',
+  apiBase: '/api',
+  apiBaseUrl: '/api', // optional, for backward compatibility
   keycloak: {
     url: 'https://tasktoolpro.id/auth',
-    realm: 'task-tool-realm',
+    realm: 'tasktool-realm',
     clientId: 'tasktool-frontend'
   }
 };
