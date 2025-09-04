@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://localhost:8080',
+  apiBaseUrl: '/api',
   keycloak: {
-    url: 'http://localhost:8081',
-    realm: 'your-realm',
-    clientId: 'angular-tasktool'
+    url: 'https://tasktoolpro.id/auth',
+    realm: 'task-tool-realm',
+    clientId: 'tasktool-frontend'
   }
 };

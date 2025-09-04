@@ -1,9 +1,9 @@
 export const environment = {
-  production: false,
-  apiBaseUrl: 'http://localhost:8080',
+  production: true,
+  apiBase: '/api', // Caddy proxies /api → backend
   keycloak: {
-    url: 'http://localhost:8081',
-    realm: 'your-realm',
-    clientId: 'angular-tasktool'
+    url: 'http://localhost:8080/auth',
+    realm: 'tasktool-realm',
+    clientId: 'tasktool-frontend'
   }
 };

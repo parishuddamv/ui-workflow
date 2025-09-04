@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpEvent, HttpEventType, HttpParams, HttpResponse, HttpUploadProgressEvent } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Task } from './task.model';
@@ -7,6 +7,7 @@ import { TaskHistory } from '../model/task-history';
 import { map, catchError, filter } from 'rxjs/operators';
 import { TaskHistoryDto, toTaskHistory } from '../model/task-history';
 import { TaskResponseDTO } from '../model/task-response-dto';
+import { environment } from '../../environments/environment';
 type HistoryApiResponse = TaskHistory[] | { data: TaskHistory[] };
 
 export interface PaginatedResponse<T> {
@@ -19,12 +20,16 @@ export interface PaginatedResponse<T> {
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private apiUrl = 'http://localhost:8084/api/tasks';
-  private baseUrl = 'http://localhost:8084/api/files';
+   private http = inject(HttpClient);
+
+  // Build URLs from env
+  private readonly base = environment.apiBase;         // '/api' (prod) or 'http://localhost:8084/api' (dev)
+  private readonly apiUrl = `${this.base}/tasks`;
+  private readonly filesUrl = `${this.base}/files`;
   private tasks = signal<Task[]>([]);
   a: any;
 
-  constructor(private http: HttpClient) {}
+//  constructor(private http: HttpClient) {}
 
   // ✅ Get filtered tasks with pagination & sorting
 getFilteredTasks(
@@ -72,7 +77,7 @@ getTasks(
 
 
 downloadFileAsBlob(objectName: string) {
-    const url = `${this.baseUrl}/download?objectName=${encodeURIComponent(objectName)}`;
+    const url = `${this.filesUrl}/download?objectName=${encodeURIComponent(objectName)}`;
   return this.http.get(`${url}`, { responseType: 'blob' });
 }
 
@@ -119,7 +124,7 @@ downloadFileAsBlob(objectName: string) {
     return this.http.get<Client[]>(`${this.apiUrl}/clients`);
   }
   downloadFile(objectName: string): Observable<Blob> {
-    const url = `${this.baseUrl}/download?objectName=${encodeURIComponent(objectName)}`;
+    const url = `${this.filesUrl}/download?objectName=${encodeURIComponent(objectName)}`;
   return this.http.get(`${url}`, { responseType: 'blob' });
 }
 updateTask(id: string, task: Task) { return this.http.put<Task>(`${this.apiUrl}/${id}`, task); }
